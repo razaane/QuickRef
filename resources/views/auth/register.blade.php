@@ -16,6 +16,29 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <label >Téléphone</label>
+            <input class="block mt-1 w-full" type="text" name="telephone"
+                value="{{ old('telephone') }}" required>
+            @error('telephone') <p>{{ $message }}</p> @enderror
+        </div>
+
+        <div class="mt-4">
+            <label class="block mt-1 w-full">Grade</label>
+            <select class="block mt-1 w-full" name="grade" required>
+                <option value="">Choisir grade</option>
+                <option value="regional"   {{ old('grade') == 'regional'       ? 'selected' : '' }}>Régional</option>
+                <option value="national"   {{ old('grade') == 'national'       ? 'selected' : '' }}>National</option>
+                <option value="international" {{ old('grade') == 'international' ? 'selected' : '' }}>International</option>
+            </select>
+            @error('grade') <p>{{ $message }}</p> @enderror
+        </div>
+
+        <div class="mt-4">
+            <label  >Adresse (optionnel)</label>
+            <input class="block mt-1 w-full" type="text" name="adresse" value="{{ old('adresse') }}">
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

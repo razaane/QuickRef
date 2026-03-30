@@ -34,23 +34,24 @@ class EquipeController extends Controller
             'nom'=>'required|string|max:100|unique:equipes,nom',
             'ville'=>'required|required|max:100',
         ]);
-        
+        Equipe::create($request->only('nom','ville'));
+        return redirect()->route('admin.equipes.index')->with('success'.'equipe ajouter avec success');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Equipe $equipe)
     {
-        //
+        return redirect()->route('admin.equipes.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Equipe $equipe)
     {
-        //
+        return redirect()->route('admin.equipes',compact('equipes'));
     }
 
     /**
@@ -58,14 +59,21 @@ class EquipeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nom'=>'required|string|max:100unique:equipes,nom,'.$equipe->id,
+            'ville'=>'required|string|max:100',
+        ]);
+        $equipe->update($request->only('nom','ville'));
+
+        return redirect()->route('admin.equipes.index')->with('success','modifier avec success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Equipe $equipe)
     {
-        //
+        $equipe->delete();
+        return redirect()->route('admin.equipes.index')->with('success','equipe supprimer');
     }
 }

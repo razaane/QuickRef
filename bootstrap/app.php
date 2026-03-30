@@ -11,10 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Hna khass t-enregistrer l-aliases dyalk
         $middleware->alias([
+            'admin'   => \App\Http\Middleware\AdminMiddleware::class,
             'arbitre' => \App\Http\Middleware\ArbitreMiddleware::class,
-            'admin' => \App\Http\Middleware\AdminMiddleware::class, // Ila derti ta dial l-admin
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

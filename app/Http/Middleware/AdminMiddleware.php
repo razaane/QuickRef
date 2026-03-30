@@ -14,7 +14,11 @@ class AdminMiddleware
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+{
+    if (auth()->check() && auth()->user()->role === 'admin') {
         return $next($request);
     }
+
+    return redirect('/')->with('error', 'Accès refusé.');
+}
 }

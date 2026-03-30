@@ -13,19 +13,23 @@
         <div class="flex items-center gap-12">
             <span class="text-2xl font-extrabold font-headline tracking-tighter">QuickRef</span>
             <div class="hidden lg:flex items-center gap-8 font-headline text-sm font-semibold">
-                <a href="{{ route('arbitre.dashboard') }}"
+           
+                <a href="#"
                    class="{{ request()->routeIs('arbitre.dashboard') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
                     Tableau de Bord
                 </a>
-                <a href="{{ route('arbitre.matchs.index') }}"
+              
+                <a href=""
                    class="{{ request()->routeIs('arbitre.matchs*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
                     Matchs
                 </a>
-                <a href="{{ route('arbitre.paiements.index') }}"
+               
+                <a href=""
                    class="{{ request()->routeIs('arbitre.paiements*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
                     Paiements
                 </a>
-                <a href="{{ route('arbitre.profil.index') }}"
+    
+                <a href=""
                    class="{{ request()->routeIs('arbitre.profil*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
                     Profil
                 </a>

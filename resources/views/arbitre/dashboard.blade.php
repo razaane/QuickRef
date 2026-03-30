@@ -1,7 +1,4 @@
-@extends('layouts.guest')
-
-@section('title', 'Tableau de Bord — QuickRef Arbitre')
-
+@extends('layouts.arbitre')
 @section('arbitre-content')
 
     {{-- Header --}}

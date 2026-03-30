@@ -1,10 +1,6 @@
-{{-- admin/dashboard.blade.php --}}
 @extends('layouts.admin')
-
-@section('title', 'Tableau de Bord — QuickRef Admin')
 @section('page-title', 'Tableau de Bord')
-
-@section('content')
+@section('admin-content')
 
     {{-- Statistics Bento Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -118,7 +114,7 @@
                                 @endif
                             </td>
                             <td class="px-8 py-6 text-right">
-                                <a href="{{ route('admin.convocations.show', $convocation) }}"
+                                <a href=""
                                    class="text-slate-400 hover:text-[#1B6B3A] transition-colors">
                                     <span class="material-symbols-outlined">visibility</span>
                                 </a>
@@ -187,7 +183,7 @@
         </div>
 
         <div class="p-6 bg-slate-50 flex justify-center border-t border-slate-100">
-            <a href="{{ route('admin.matches') ?? '#' }}"
+            <a href=""
                class="text-[#1B6B3A] font-headline text-xs font-black uppercase tracking-widest hover:text-[#C9A84C] transition-colors">
                 Voir tous les matchs
             </a>
@@ -238,7 +234,7 @@
                         <span class="material-symbols-outlined text-[#C9A84C]">picture_as_pdf</span>
                         <span class="text-sm font-bold font-headline">Imprimer Feuilles de Match</span>
                     </button>
-                    <a href="{{ route('admin.referees.create') ?? '#' }}"
+                    <a href=""
                        class="flex items-center gap-4 px-5 py-4 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all text-left">
                         <span class="material-symbols-outlined text-[#C9A84C]">group_add</span>
                         <span class="text-sm font-bold font-headline">Ajouter Nouvel Arbitre</span>

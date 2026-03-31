@@ -16,7 +16,12 @@
                 <span class="material-symbols-outlined text-[#C9A84C]">dashboard</span>
                 <span class="text-sm font-semibold">Vue d'ensemble</span>
             </a>
-            {{-- Zid hna links d admin --}}
+            {{-- Gestion des Équipes --}}
+            <a href="{{ route('admin.equipes.index') }}" 
+            class="flex items-center gap-3 px-4 py-3 text-white rounded-lg {{ request()->routeIs('admin.equipes.*') ? 'bg-white/10' : 'hover:bg-white/5' }}">
+                <span class="material-symbols-outlined text-[#C9A84C]">shield</span>
+                <span class="text-sm font-semibold">Gestion des Équipes</span>
+            </a>
         </nav>
         <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6 border-t border-white/10">
             @csrf

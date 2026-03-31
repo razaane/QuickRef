@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use APp\Model\Equipe;
+use App\Models\Equipe;
 
 class EquipeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Afficher la liste des équipes
      */
     public function index()
     {
-        $equipe=Equipe::orderBy('nom')->paginae(10);
-        return view('admin.equipes.index',compact('equipes'));
+        $equipes = Equipe::orderBy('nom')->paginate(10);
+        return view('admin.equipes.index', compact('equipes'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Formulaire de création
      */
     public function create()
     {
@@ -26,20 +26,23 @@ class EquipeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistrer une nouvelle équipe
      */
     public function store(Request $request)
     {
         $request->validate([
-            'nom'=>'required|string|max:100|unique:equipes,nom',
-            'ville'=>'required|required|max:100',
+            'nom'   => 'required|string|max:100|unique:equipes,nom',
+            'ville' => 'required|string|max:100', // tashi7 l-validation hna
         ]);
-        Equipe::create($request->only('nom','ville'));
-        return redirect()->route('admin.equipes.index')->with('success'.'equipe ajouter avec success');
+
+        Equipe::create($request->only('nom', 'ville'));
+
+        // tashi7 l-concaténation dyal 'with'
+        return redirect()->route('admin.equipes.index')->with('success', 'Équipe ajoutée avec succès');
     }
 
     /**
-     * Display the specified resource.
+     * Rediriger vers l'index (pas besoin de show pour le moment)
      */
     public function show(Equipe $equipe)
     {
@@ -47,33 +50,35 @@ class EquipeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Formulaire d'édition
      */
     public function edit(Equipe $equipe)
     {
-        return redirect()->route('admin.equipes',compact('equipes'));
+        // tashi7: khass t-koun .edit f l-akhir
+        return view('admin.equipes.edit', compact('equipe'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mettre à jour l'équipe
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Equipe $equipe)
     {
         $request->validate([
-            'nom'=>'required|string|max:100unique:equipes,nom,'.$equipe->id,
-            'ville'=>'required|string|max:100',
+            'nom'   => 'required|string|max:100|unique:equipes,nom,' . $equipe->id,
+            'ville' => 'required|string|max:100',
         ]);
-        $equipe->update($request->only('nom','ville'));
 
-        return redirect()->route('admin.equipes.index')->with('success','modifier avec success');
+        $equipe->update($request->only('nom', 'ville'));
+
+        return redirect()->route('admin.equipes.index')->with('success', 'Modifiée avec succès');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprimer l'équipe
      */
-    public function destroy(Equipe $equipe)
+    public function destroy(Equipe $equipe) // tashi7: $equipe (mofrad)
     {
         $equipe->delete();
-        return redirect()->route('admin.equipes.index')->with('success','equipe supprimer');
+        return redirect()->route('admin.equipes.index')->with('success', 'Équipe supprimée avec succès');
     }
 }

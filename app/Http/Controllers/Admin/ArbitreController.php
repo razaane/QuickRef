@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Arbitre;
+use Illuminate\Support\Facades\Hash;
 
 
 class ArbitreController extends Controller
@@ -31,31 +33,40 @@ class ArbitreController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name'=>'required|string|max:50',
-            'email'=>'required|string|email|max:255|unique:users',
-            'password'=>'required|string|min:8',
-            'telephone'=>'required|string|max:20',
-            'grade'=>'required|in:regional,national,international',
-        ]);
-        DB::transation(function() use ($request){
-            $user=User::create([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>Hash::make($request->password),
-                'role'=>'arbitre',
-            ]);
+{
+    $request->validate([
+        'name'      => 'required|string|max:255',
+        'email'     => 'required|string|email|max:255|unique:users,email',
+        'password'  => 'required|string|min:8',
+        'telephone' => 'required|string|max:20',
+        'grade'     => 'required|in:regional,national,international',
+    ]);
 
-            Arbitre::create([
-                'user_id'=>$user->id,
-                'telephone'=>$request->telephone,
-                'grade'=>$request->grade,
-                'adresse'=>$request->adresse,
-            ]);
-        });
-        return redirect()->route('admin.arbitres.index')->with('success','Arbitre ajouter avec success');
+    try {
+        DB::beginTransaction();
+
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password), 
+            'role'     => 'arbitre',
+        ]);
+
+        Arbitre::create([
+            'user_id'   => $user->id,
+            'telephone' => $request->telephone,
+            'grade'     => $request->grade,
+            'adresse'   => $request->adresse,
+        ]);
+
+        DB::commit();
+        return redirect()->route('admin.arbitres.index')->with('success', 'Arbitre créé avec succès !');
+
+    } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors(['db_error' => 'Erreur lors de la création : ' . $e->getMessage()]);
     }
+}
 
     /**
      * Display the specified resource.
@@ -77,21 +88,36 @@ class ArbitreController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Arbitre $arbitre)
-    {
-        $request->validate([
-            'name'=>'required|string|max:50',
-            'email'=>'required|string|email|max:255|unique:users',
-            'telephone'=>'required|string|max:20',
-            'grade'=>'required|in:regional,national,international',
-        ]);
-        $arbitre->user->update([
-            'name'->$request->name,
-            'email'->$request->email,
-        ]);
-        $arbitre =update($request->only('telephone','grade','adresse'));
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $arbitre->user_id,
+        'telephone' => 'required|string|max:20',
+        'grade' => 'required|in:regional,national,international',
+    ]);
 
-        return redirect()->route('admin.arbitres.index')->with('success','arbitre à mise à jour par success');
+    try {
+        DB::beginTransaction();
+
+        $arbitre->user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        $arbitre->update([
+            'telephone' => $request->telephone,
+            'grade' => $request->grade,
+            'adresse' => $request->adresse,
+        ]);
+
+        DB::commit();
+        return redirect()->route('admin.arbitres.index')->with('success', 'Arbitre mis à jour avec succès');
+
+    } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors(['error' => 'Erreur: ' . $e->getMessage()]);
     }
+}
 
     /**
      * Remove the specified resource from storage.

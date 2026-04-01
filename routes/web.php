@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\EquipeController;
 use App\Http\Controllers\Admin\ArbitreController;
+use App\Http\Controllers\Admin\CategorieController;
+
 
 
 
@@ -24,6 +26,7 @@ Route::middleware(['auth', 'admin'])
         Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
         Route::resource('equipes', EquipeController::class);
         Route::resource('arbitres',ArbitreController::class);
+        Route::resource('categories',CategorieController::class);
     });
 
 

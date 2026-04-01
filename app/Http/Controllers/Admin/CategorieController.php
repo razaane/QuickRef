@@ -14,7 +14,7 @@ class CategorieController extends Controller
     public function index()
     {
         $categories= Categorie::orderBy('montant')->paginate(10);
-        return view('admin.categories.index',compact('categorie'));
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        return view('admin.categorie.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -30,8 +30,8 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        $request =validate([
-            'nom'=>'required|string|max:100:unique:categories,nom',
+        $request->validate([
+            'nom'=>'required|string|max:100|unique:categories,nom',
             'montant'=>'required|numeric|min:0 ',
         ]);
 
@@ -56,7 +56,7 @@ class CategorieController extends Controller
      */
     public function edit(Categorie $categorie)
     {
-        return view('admin.categories.edit');
+        return view('admin.categories.edit',compact('categorie'));
      }
 
     /**
@@ -65,7 +65,7 @@ class CategorieController extends Controller
     public function update(Request $request, Categorie $categorie)
     {
         $request->validate([
-            'nom'=>'required|string|max:100|unique:categories,nom',
+            'nom'=>'required|string|max:100|unique:categories,nom'.$categorie->id,
             'montant '=>'required|numeric|min:0',
         ]);
         $categorie->update([
@@ -81,6 +81,6 @@ class CategorieController extends Controller
     public function destroy(Categorie $categorie)
     {
         $categorie->delete();
-        return redirect()->route('admin.categories.index')->with('success','deleted with success')
+        return redirect()->route('admin.categories.index')->with('success','deleted with success');
     }
 }

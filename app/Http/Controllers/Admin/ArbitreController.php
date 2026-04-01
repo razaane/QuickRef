@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Arbitre;
 
 
 class ArbitreController extends Controller
@@ -61,30 +62,43 @@ class ArbitreController extends Controller
      */
     public function show(string $id)
     {
-        
+        return redirect()->route('admin.arbitres.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Arbitre $arbitre)
     {
-        //
+        return view('admin.arbitres.edit',compact('arbitre'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Arbitre $arbitre)
     {
-        //
+        $request->validate([
+            'name'=>'required|string|max:50',
+            'email'=>'required|string|email|max:255|unique:users',
+            'telephone'=>'required|string|max:20',
+            'grade'=>'required|in:regional,national,international',
+        ]);
+        $arbitre->user->update([
+            'name'->$request->name,
+            'email'->$request->email,
+        ]);
+        $arbitre =update($request->only('telephone','grade','adresse'));
+
+        return redirect()->route('admin.arbitres.index')->with('success','arbitre à mise à jour par success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Arbitre $arbitre)
     {
-        //
+        $arbitre->delete();
+        return redirect()->route('admin.arbitres.index')->with('success','supprimé avec success');
     }
 }

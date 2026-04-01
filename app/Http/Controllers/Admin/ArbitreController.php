@@ -71,9 +71,9 @@ class ArbitreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Arbitre $arbitre)
     {
-        return redirect()->route('admin.arbitres.index');
+        return redirect()->route('admin.arbitres.index')->compact('arbitre');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Categorie;
 
 class CategorieController extends Controller
 {
@@ -12,7 +13,8 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        //
+        $categories= Categorie::orderBy('montant')->paginate(10);
+        return view('admin.categories.index',compact('categorie'));
     }
 
     /**
@@ -20,7 +22,7 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categorie.create');
     }
 
     /**
@@ -28,38 +30,57 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request =validate([
+            'nom'=>'required|string|max:100:unique:categories,nom',
+            'montant'=>'required|numeric|min:0 ',
+        ]);
+
+        Categorie::create([
+            'nom'=>$request->nom,
+            'montant'=>$request->montant,
+        ]);
+        return redirect()->route('admin.categories.index')->with('success','categorie crée avec success');
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Categorie $categorie)
     {
-        //
+        return redirect()->route('admin.categories.index',compact('categorie'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Categorie $categorie)
     {
-        //
-    }
+        return view('admin.categories.edit');
+     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Categorie $categorie)
     {
-        //
+        $request->validate([
+            'nom'=>'required|string|max:100|unique:categories,nom',
+            'montant '=>'required|numeric|min:0',
+        ]);
+        $categorie->update([
+            'nom'=>$request->nom,
+            'montant'=>$request->montant,
+        ]);
+        return redirect()->route('admin.categories.index')->with('success','categorie updated with success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Categorie $categorie)
     {
-        //
+        $categorie->delete();
+        return redirect()->route('admin.categories.index')->with('success','deleted with success')
     }
 }

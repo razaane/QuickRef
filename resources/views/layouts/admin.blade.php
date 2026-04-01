@@ -30,6 +30,12 @@
                 <span class="material-symbols-outlined text-[#C9A84C]">shield</span>
                 <span class="text-sm font-semibold">Gestion des Équipes</span>
             </a>
+            {{-- Gestion des Catégories --}}
+            <a href="{{ route('admin.categories.index') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-white rounded-lg {{ request()->routeIs('admin.categories.*') ? 'bg-white/10' : 'hover:bg-white/5 opacity-80' }}">
+                <span class="material-symbols-outlined text-[#C9A84C]">category</span>
+                <span class="text-sm font-semibold">Catégories & Tarifs</span>
+            </a>
 
         </nav>
         <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6 border-t border-white/10">

@@ -11,20 +11,28 @@ return new class extends Migration
      */
     public function up(): void {
     Schema::create('matchs', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('equipe_domicile_id')
-               ->constrained('equipes')->onDelete('cascade');
-        $table->foreignId('equipe_visiteur_id')
-               ->constrained('equipes')->onDelete('cascade');
-        $table->foreignId('categorie_id')
-               ->constrained('categories')->onDelete('cascade');
-        $table->dateTime('date');
-        $table->string('terrain');
-        $table->string('ville');
-        $table->enum('statut', ['programme', 'joue', 'annule'])
-               ->default('programme');
-        $table->timestamps();
-    });
+    $table->id();
+    //equipes
+    $table->foreignId('equipe_domicile_id')->constrained('equipes')->onDelete('cascade');
+    $table->foreignId('equipe_visiteur_id')->constrained('equipes')->onDelete('cascade');
+    $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
+
+    // Arbitres
+    $table->foreignId('arbitre_central_id')->constrained('arbitres');
+    $table->foreignId('arbitre_assistant1_id')->constrained('arbitres');
+    $table->foreignId('arbitre_assistant2_id')->constrained('arbitres');
+    $table->foreignId('quatrieme_arbitre_id')->nullable()->constrained('arbitres'); // Optionnel
+
+    // date et day
+    $table->dateTime('date_heure'); 
+    $table->string('terrain');
+    $table->string('ville');
+
+    // Statut 
+    $table->enum('statut', ['programme', 'confirme', 'joue', 'annule'])->default('programme');
+    
+    $table->timestamps();
+});
 }
 
     /**

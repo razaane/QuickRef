@@ -29,7 +29,13 @@ return new class extends Migration
     $table->string('ville');
 
     // Statut 
-    $table->enum('statut', ['programme', 'confirme', 'joue', 'annule'])->default('programme');
+    $table->enum('statut', [
+    'en_attente',   
+    'confirmer',     
+    'jouer',         
+    'annuler',       
+    'reporter'      
+    ])->default('en_attente');
     
     $table->timestamps();
 });

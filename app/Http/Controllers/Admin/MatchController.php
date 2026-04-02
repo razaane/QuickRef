@@ -40,27 +40,46 @@ class MatchController extends Controller
      * Store a newly created match in storage.
      */
     public function store(Request $request)
-    {
-        $data = $this->validateMatch($request);
+{
+    $request->merge([
+        'statut' => $request->statut ?? 'en_attente',
+    ]);
 
-        // Logic: Check si l'un des arbitres est déjà pris le même jour
-        if ($this->isArbitreBusy($request)) {
-            return back()->withInput()->withErrors(['error' => 'Un ou plusieurs arbitres sont déjà assignés à un match ce jour-là.']);
-        }
+    // 2. Validation
+    $data = $request->validate([
+        'equipe_domicile_id' => 'required|exists:equipes,id',
+        'equipe_visiteur_id' => 'required|exists:equipes,id|different:equipe_domicile_id',
+        'categorie_id'       => 'required|exists:categories,id',
+        'arbitre_central_id' => 'required|exists:arbitres,id',
+        'arbitre_assistant1_id' => 'required|exists:arbitres,id|different:arbitre_central_id',
+        'arbitre_assistant2_id' => 'required|exists:arbitres,id|different:arbitre_central_id|different:arbitre_assistant1_id',
+        'quatrieme_arbitre_id'  => 'nullable|exists:arbitres,id',
+        'date_heure' => 'required|date',
+        'terrain'    => 'required|string|max:255',
+        'ville'      => 'required|string|max:255', // <--- Ila baqi Error, ya3ni l-input f Blade machi smito ville
+        'statut'     => 'required|in:en_attente,confirmer,jouer,annuler,reporter',
+    ]);
 
-        Game::create($data);
-
-        return redirect()->route('admin.matchs.index')->with('success', 'Match programmé avec succès.');
+    // 3. Check Arbitres Busy
+    if ($this->isArbitreBusy($request)) {
+        return back()->withInput()->withErrors(['error' => 'Un ou plusieurs arbitres sont déjà pris.']);
     }
+
+    // 4. Create
+    Game::create($data);
+
+    return redirect()->route('admin.matchs.index')->with('success', 'Match créé !');
+}
 
     /**
      * Display the specified match.
      */
     public function show(Game $match)
-    {
-        $match->load(['equipeDomicile', 'equipeVisiteur', 'categorie', 'arbitreCentral.user', 'assistant1.user', 'assistant2.user', 'quatrieme.user']);
-        return view('admin.matchs.show', compact('match'));
-    }
+{
+    // T-akdi mn had l-load
+    $match->load(['equipeDomicile', 'equipeVisiteur', 'categorie', 'arbitreCentral.user', 'assistant1.user', 'assistant2.user', 'quatrieme.user']);
+    return view('admin.matchs.show', compact('match'));
+}
 
     /**
      * Show the form for editing the specified match.

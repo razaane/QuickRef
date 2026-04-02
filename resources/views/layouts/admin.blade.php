@@ -37,6 +37,12 @@
                 <span class="text-sm font-semibold">Catégories & Tarifs</span>
             </a>
 
+             {{-- Prochainement: Matchs --}}
+            <div class="pt-4 pb-2 px-4 text-[10px] font-bold text-white/40 uppercase tracking-widest">Compétition</div>
+            <a href="{{route('admin.matchs.index')}}" class="flex items-center gap-3 px-4 py-3 text-white/50 hover:bg-white/5 rounded-lg cursor-not-allowed">
+                <span class="material-symbols-outlined text-[#C9A84C]/50">sports_soccer</span>
+                <span class="text-sm font-semibold">Matchs & Désignations</span>
+            </a>
         </nav>
         <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6 border-t border-white/10">
             @csrf

@@ -1,4 +1,4 @@
-<section>
+php artisan make:controller Admin/MatchController --model=Match<section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}

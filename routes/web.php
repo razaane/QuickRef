@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\EquipeController;
 use App\Http\Controllers\Admin\ArbitreController;
 use App\Http\Controllers\Admin\CategorieController;
+use App\Http\Controllers\Admin\MatchController as AdminMatchController;
+use App\Http\Controllers\Arbitre\ArbitreMatchController;
 
 
 
@@ -38,3 +40,16 @@ require __DIR__.'/auth.php';
         return view('arbitre.dashboard'); 
     })->name('arbitre.dashboard');
 });
+
+// Group dyal l-Admin
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('matchs', AdminMatchController::class);
+});
+
+// Group dyal l-Arbitre
+Route::middleware(['auth'])->prefix('arbitre')->name('arbitre.')->group(function () {
+    Route::get('/dashboard', [ArbitreMatchController::class, 'dashboard'])->name('dashboard');
+    Route::get('/matchs', [ArbitreMatchController::class, 'index'])->name('matchs.index');
+    Route::get('/matchs/{match}', [ArbitreMatchController::class, 'show'])->name('matchs.show');
+});
+

@@ -17,18 +17,18 @@ return new class extends Migration
     $table->foreignId('equipe_visiteur_id')->constrained('equipes')->onDelete('cascade');
     $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
 
-    // Arbitres
+    //Arbitres
     $table->foreignId('arbitre_central_id')->constrained('arbitres');
     $table->foreignId('arbitre_assistant1_id')->constrained('arbitres');
     $table->foreignId('arbitre_assistant2_id')->constrained('arbitres');
-    $table->foreignId('quatrieme_arbitre_id')->nullable()->constrained('arbitres'); // Optionnel
+    $table->foreignId('quatrieme_arbitre_id')->nullable()->constrained('arbitres');
 
-    // date et day
+    //date et day
     $table->dateTime('date_heure'); 
     $table->string('terrain');
     $table->string('ville');
 
-    // Statut 
+    //Statut 
     $table->enum('statut', [
     'en_attente',   
     'confirmer',     

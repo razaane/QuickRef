@@ -14,9 +14,9 @@ return new class extends Migration
         $table->id();
         $table->foreignId('match_id')
                ->constrained('matchs')->onDelete('cascade');
-        $table->foreignId('arbitre_id')       // arbitre central qui génère
+        $table->foreignId('arbitre_id')       // arbitre central
                ->constrained('arbitres')->onDelete('cascade');
-        $table->string('fichier_path');       // chemin du PDF stocké
+        $table->string('fichier_path');       // chemin du PDF
         $table->enum('statut', ['soumise', 'verifiee', 'rejetee'])
                ->default('soumise');
         $table->text('commentaire_admin')->nullable();

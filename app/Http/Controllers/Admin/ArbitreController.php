@@ -32,7 +32,7 @@ class ArbitreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   public function store(Request $request)
 {
     $request->validate([
         'name'      => 'required|string|max:255',
@@ -48,12 +48,12 @@ class ArbitreController extends Controller
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
-            'password' => Hash::make($request->password), 
+            'password' => bcrypt($request->password), 
             'role'     => 'arbitre',
         ]);
 
         Arbitre::create([
-            'user_id'   => $user->id,
+            'user_id'   => $user->id, 
             'telephone' => $request->telephone,
             'grade'     => $request->grade,
             'adresse'   => $request->adresse,
@@ -64,7 +64,7 @@ class ArbitreController extends Controller
 
     } catch (\Exception $e) {
         DB::rollback();
-        return back()->withInput()->withErrors(['db_error' => 'Erreur lors de la création : ' . $e->getMessage()]);
+        return back()->withInput()->withErrors(['db_error' => 'Erreur : ' . $e->getMessage()]);
     }
 }
 
@@ -73,7 +73,7 @@ class ArbitreController extends Controller
      */
     public function show(Arbitre $arbitre)
     {
-        return redirect()->route('admin.arbitres.index')->compact('arbitre');
+        return redirect()->route('admin.arbitres.show')->compact('arbitre');
     }
 
     /**

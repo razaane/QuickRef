@@ -107,10 +107,6 @@
                     <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                 </a>
             @endif
-            <p class="text-xs text-on-surface-variant">
-                Pas encore de compte ?
-                <a href="{{ route('register') }}" class="text-tertiary font-bold hover:underline">S'inscrire</a>
-            </p>
         </div>
 
     </div>

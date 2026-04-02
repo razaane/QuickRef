@@ -9,14 +9,6 @@
         <div class="flex items-center gap-12">
             <span class="text-2xl font-extrabold text-primary font-headline tracking-tighter">QuickRef</span>
         </div>
-        
-        <div class="flex items-center gap-4">
-            {{-- HNA FIN KAYN L-LINK --}}
-            <a href="{{ route('login') }}" 
-               class="px-6 py-2.5 bg-secondary text-white font-bold text-xs uppercase tracking-widest rounded-sm hover:brightness-110 transition-all cursor-pointer">
-                Se connecter
-            </a>
-        </div>
     </nav>
 
     <main class="relative pt-48 pb-32 px-6 text-center max-w-5xl mx-auto">
@@ -25,10 +17,10 @@
         </h1>
         
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
-            {{-- BOUTON REGISTER --}}
-            <a href="{{ route('register') }}" 
+            {{-- BOUTON Login --}}
+            <a href="{{ route('login') }}" 
                class="px-12 py-5 bg-secondary text-white font-bold text-sm uppercase tracking-widest rounded-sm hover:brightness-110 transition-all shadow-xl cursor-pointer">
-                S'inscrire
+                Se connecter
             </a>
         </div>
     </main>

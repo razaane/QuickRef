@@ -13,7 +13,7 @@ class ArbitreMatchController extends Controller
     $arbitreId = $user->arbitre->id;
 
     // Jib l-matchs li jayin (Upcoming)
-    $upcomingMatches = \App\Models\Match::where(function($q) use ($arbitreId) {
+    $upcomingMatches = \App\Models\Game::where(function($q) use ($arbitreId) {
             $q->where('arbitre_central_id', $arbitreId)
               ->orWhere('arbitre_assistant1_id', $arbitreId)
               ->orWhere('arbitre_assistant2_id', $arbitreId)
@@ -25,7 +25,7 @@ class ArbitreMatchController extends Controller
         ->get();
 
     // 7issab l-flouss dyal l-ch-her (Indemnités)
-    $monthlyPayment = \App\Models\Match::where('date_heure', '>=', now()->startOfMonth())
+    $monthlyPayment = \App\Models\Game::where('date_heure', '>=', now()->startOfMonth())
         ->where('statut', 'jouer')
         ->where(function($q) use ($arbitreId) {
             $q->where('arbitre_central_id', $arbitreId)

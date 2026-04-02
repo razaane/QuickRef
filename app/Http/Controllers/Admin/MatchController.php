@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Match;
+use App\Models\Game;
 use App\Models\Equipe;
 use App\Models\Arbitre;
 use App\Models\Categorie;

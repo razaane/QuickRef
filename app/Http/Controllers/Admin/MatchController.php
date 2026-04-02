@@ -17,7 +17,7 @@ class MatchController extends Controller
      */
     public function index()
     {
-        $matchs = Match::with(['equipeDomicile', 'equipeVisiteur', 'categorie', 'arbitreCentral.user'])
+        $matchs = Game::with(['equipeDomicile', 'equipeVisiteur', 'categorie', 'arbitreCentral.user'])
             ->orderBy('date_heure', 'desc')
             ->paginate(10);
 
@@ -48,7 +48,7 @@ class MatchController extends Controller
             return back()->withInput()->withErrors(['error' => 'Un ou plusieurs arbitres sont déjà assignés à un match ce jour-là.']);
         }
 
-        Match::create($data);
+        Game::create($data);
 
         return redirect()->route('admin.matchs.index')->with('success', 'Match programmé avec succès.');
     }
@@ -56,7 +56,7 @@ class MatchController extends Controller
     /**
      * Display the specified match.
      */
-    public function show(Match $match)
+    public function show(Game $match)
     {
         $match->load(['equipeDomicile', 'equipeVisiteur', 'categorie', 'arbitreCentral.user', 'assistant1.user', 'assistant2.user', 'quatrieme.user']);
         return view('admin.matchs.show', compact('match'));
@@ -65,7 +65,7 @@ class MatchController extends Controller
     /**
      * Show the form for editing the specified match.
      */
-    public function edit(Match $match)
+    public function edit(Game $match)
     {
         $equipes = Equipe::all();
         $categories = Categorie::all();
@@ -77,7 +77,7 @@ class MatchController extends Controller
     /**
      * Update the specified match in storage.
      */
-    public function update(Request $request, Match $match)
+    public function update(Request $request, Game $match)
     {
         $data = $this->validateMatch($request, $match->id);
 
@@ -94,7 +94,7 @@ class MatchController extends Controller
     /**
      * Remove the specified match from storage.
      */
-    public function destroy(Match $match)
+    public function destroy(Game $match)
     {
         $match->delete();
         return redirect()->route('admin.matchs.index')->with('success', 'Match supprimé avec succès.');
@@ -133,7 +133,7 @@ class MatchController extends Controller
             $request->quatrieme_arbitre_id
         ]);
 
-        $query = Match::whereDate('date_heure', $dateMatch);
+        $query = Game::whereDate('date_heure', $dateMatch);
 
         if ($excludeMatchId) {
             $query->where('id', '!=', $excludeMatchId);

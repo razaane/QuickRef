@@ -44,6 +44,7 @@ require __DIR__.'/auth.php';
 // Group dyal l-Admin
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('matchs', AdminMatchController::class);
+    Route::resource('matchs', MatchController::class);
 });
 
 // Group dyal l-Arbitre

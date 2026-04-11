@@ -14,7 +14,7 @@
                     <th class="px-6 py-3 text-xs font-bold uppercase text-gray-500">Match</th>
                     <th class="px-6 py-3 text-xs font-bold uppercase text-gray-500">Ville / Terrain</th>
                     <th class="px-6 py-3 text-xs font-bold uppercase text-gray-500">Statut</th>
-                    <th class="px-6 py-3 text-xs font-bold uppercase text-gray-500">Actions</th>
+                    <th class="px-6 py-3 text-xs font-bold uppercase text-gray-500 ">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -28,10 +28,18 @@
                             {{ $match->statut }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 flex gap-2">
-                        <a href="{{ route('admin.matchs.show', $match->id) }}" class="text-blue-500 hover:underline">Voir</a>
-                        <a href="{{ route('admin.matchs.edit', $match->id) }}" class="text-amber-500 hover:underline">Edit</a>
-                    </td>
+                    
+                    <td class="px-6 py-4 text-right flex justify-end gap-2">
+                    <a href="{{ route('admin.matchs.show', $match->id) }}" class="p-2 text-slate-400 hover:text-blue-600 transition-colors" title="Voir">
+                            <span class="material-symbols-outlined">visibility</span>
+                    </a>
+                    <a href="{{ route('admin.matchs.edit', $match->id) }}" class="p-2 text-slate-400 hover:text-[#1B6B3A]"><span class="material-symbols-outlined">edit</span></a>
+                    <form action="{{ route('admin.matchs.edit', $match->id) }}}" method="POST">
+                        @csrf @method('DELETE')
+                        <button class="p-2 text-slate-400 hover:text-red-600" onclick="return confirm('Supprimer ?')"><span class="material-symbols-outlined">delete</span></button>
+                    </form>
+
+                </td>
                 </tr>
                 @endforeach
             </tbody>

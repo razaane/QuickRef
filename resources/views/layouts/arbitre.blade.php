@@ -15,6 +15,11 @@
                 <span class="material-symbols-outlined text-white">logout</span>
             </button>
         </form>
+
+        <a href="{{ route('arbitre.profil.edit') }}"
+        class="{{ request()->routeIs('arbitre.profil*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
+            Profil
+        </a>
     </nav>
 
     <main class="pt-32 pb-16 px-8 max-w-7xl mx-auto min-h-screen">

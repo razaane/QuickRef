@@ -20,6 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Profil Admin
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/profil', [App\Http\Controllers\Admin\ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [App\Http\Controllers\Admin\ProfilController::class, 'update'])->name('profil.update'); 
+});
+
+// Profil Arbitre
+Route::middleware(['auth', 'arbitre'])->prefix('arbitre')->name('arbitre.')->group(function () {
+    Route::get('/profil', [App\Http\Controllers\Arbitre\ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [App\Http\Controllers\Arbitre\ProfilController::class, 'update'])->name('profil.update'); 
+});
+
 Route::middleware(['auth', 'admin']) 
     ->prefix('admin')
     ->name('admin.')

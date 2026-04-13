@@ -28,11 +28,8 @@
                     class="{{ request()->routeIs('arbitre.paiements*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
                         Paiements
                     </a>
-        
-                    <a href=""
-                    class="{{ request()->routeIs('arbitre.profil*') ? 'border-b-2 border-[#C9A84C] pb-1' : 'opacity-70 hover:opacity-100 transition-opacity' }}">
-                        Profil
-                    </a>
+                   
+
                 </div>
             </div>
 

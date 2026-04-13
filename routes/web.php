@@ -54,7 +54,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('/paiements/{id}', [PaiementController::class, 'update'])->name('paiements.update');
 });
 
-Route::middleware(['auth', 'arbitre'])
+
+
+    Route::middleware(['auth', 'arbitre'])
     ->prefix('arbitre')
     ->name('arbitre.')
     ->group(function () {
@@ -62,7 +64,6 @@ Route::middleware(['auth', 'arbitre'])
         Route::get('/matchs', [ArbitreMatchController::class, 'index'])->name('matchs.index');
         Route::get('/matchs/{match}', [ArbitreMatchController::class, 'show'])->name('matchs.show');
     });
-
 
     Route::post('admin/paiements/arbitre', [PaiementController::class, 'payerArbitre'])
     ->name('admin.paiements.arbitre');

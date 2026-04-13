@@ -46,6 +46,13 @@
                 <span class="text-sm font-semibold">Matchs & Désignations</span>
             </a>
 
+            {{-- paiements --}}
+            <a href="{{ route('admin.paiements.index') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-white rounded-lg {{ request()->routeIs('admin.matchs.*') ? 'bg-white/10' : 'hover:bg-white/5 opacity-80' }}">
+                <span class="material-symbols-outlined text-[#C9A84C]">payments</span>
+                <span class="text-sm font-semibold">Paiements</span>
+            </a>
+
         </nav>
         <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-6 border-t border-white/10">
             @csrf

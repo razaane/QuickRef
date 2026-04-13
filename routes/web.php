@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ArbitreController;
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\MatchController as AdminMatchController;
 use App\Http\Controllers\Arbitre\ArbitreMatchController;
+use App\Http\Controllers\Admin\PaiementController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +31,17 @@ Route::middleware(['auth', 'admin'])
         Route::resource('matchs', AdminMatchController::class); 
     });
 
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    // Hadu l-routes d l-paiements
+    Route::get('/paiements', [PaiementController::class, 'index'])->name('paiements.index');
+    
+    // HADI HIYA LI NAQSAK:
+    Route::post('/paiements/pay-all', [PaiementController::class, 'payAll'])->name('paiements.payAll');
+    
+    // Route dyal l-Update (Payer un par un)
+    Route::put('/paiements/{id}', [PaiementController::class, 'update'])->name('paiements.update');
+});
+
 Route::middleware(['auth', 'arbitre'])
     ->prefix('arbitre')
     ->name('arbitre.')
@@ -38,4 +51,7 @@ Route::middleware(['auth', 'arbitre'])
         Route::get('/matchs/{match}', [ArbitreMatchController::class, 'show'])->name('matchs.show');
     });
 
+
+    Route::post('admin/paiements/arbitre', [PaiementController::class, 'payerArbitre'])
+    ->name('admin.paiements.arbitre');
 require __DIR__.'/auth.php';

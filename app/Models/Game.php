@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $table = 'matchs'; // Bach n-t-akdo bli k-y-chouf table 'matchs'
+    protected $table = 'matchs'; 
+    
 
     protected $fillable = [
         'equipe_domicile_id', 
@@ -56,4 +57,6 @@ class Game extends Model
     {
         return $this->belongsTo(Equipe::class, 'equipe_visiteur_id');
     }
+
+    
 }

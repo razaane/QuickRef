@@ -14,10 +14,10 @@ return new class extends Migration
         $table->id();
         $table->foreignId('arbitre_id')
                ->constrained('arbitres')->onDelete('cascade');
-        $table->integer('nombre_matchs');
-        $table->decimal('montant_total', 10, 2);
-        $table->enum('statut', ['non_paye', 'paye'])->default('non_paye');
-        $table->timestamp('date_validation')->nullable();
+        $table->decimal('montant', 10, 2);
+        $table->string('mois');
+        $table->string('statut')->default('en_attente');
+        $table->date('date_paiement')->nullable();
         $table->timestamps();
     });
 }
@@ -27,6 +27,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paiements');
+        Schema::table('matchs', function (Blueprint $table) {
+        // Ila bghiti t-raj3ih ENUM
+        $table->enum('statut', ['en_attente', 'jouer', 'annuler'])->default('en_attente')->change();
+    });
     }
 };

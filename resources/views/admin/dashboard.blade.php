@@ -8,7 +8,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
         {{-- Matchs joués --}}
-        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 ">
             <div class="flex items-center justify-between mb-4">
                 <span class="material-symbols-outlined text-[#1B6B3A] bg-[#1B6B3A]/10 p-2 rounded-xl">sports_soccer</span>
                 <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total</span>

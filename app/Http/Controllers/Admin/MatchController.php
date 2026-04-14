@@ -96,20 +96,16 @@ class MatchController extends Controller
     /**
      * Update the specified match in storage.
      */
-    public function update(Request $request, Game $match)
-    {
-        $data = $this->validateMatch($request, $match->id);
+    public function update(Request $request, $id)
+{
+    $match = Game::findOrFail($id);
+    
+    // On utilise fill() puis save() pour être sûr
+    $match->fill($request->all());
+    $match->save();
 
-        // Check availability (excluding current match)
-        if ($this->isArbitreBusy($request, $match->id)) {
-            return back()->withInput()->withErrors(['error' => 'Un ou plusieurs arbitres sont déjà pris ce jour-là.']);
-        }
-
-        $match->update($data);
-
-        return redirect()->route('admin.matchs.index')->with('success', 'Match mis à jour avec succès.');
-    }
-
+    return redirect()->route('admin.matchs.index')->with('success', 'Modifié !');
+}
     /**
      * Remove the specified match from storage.
      */

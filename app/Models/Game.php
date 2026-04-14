@@ -10,20 +10,19 @@ class Game extends Model
     protected $table = 'matchs'; 
     
 
-    protected $fillable = [
-        'equipe_domicile_id', 
-        'equipe_visiteur_id', 
-        'categorie_id',
-        'arbitre_central_id', 
-        'arbitre_assistant1_id', 
-        'arbitre_assistant2_id', 
-        'quatrieme_arbitre_id',
-        'date_heure', 
-        'terrain', 
-        'ville', 
-        'statut'
-    ];
-
+   protected $fillable = [
+    'equipe_domicile_id', 
+    'equipe_visiteur_id', 
+    'date_heure', 
+    'terrain', 
+    'ville', 
+    'categorie_id', 
+    'arbitre_central_id', 
+    'arbitre_assistant1_id', 
+    'arbitre_assistant2_id', 
+    'quatrieme_arbitre_id',
+    'statut'
+];
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);

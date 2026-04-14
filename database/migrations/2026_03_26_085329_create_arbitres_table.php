@@ -23,6 +23,7 @@ return new class extends Migration
         ]);
         $table->string('adresse')->nullable();
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 
@@ -31,6 +32,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('arbitres');
+        Schema::table('arbitres', function (Blueprint $table) {
+        $table->dropSoftDeletes();
+    });
     }
 };

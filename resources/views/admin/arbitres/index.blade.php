@@ -37,10 +37,15 @@
                     <a href="{{ route('admin.arbitres.edit', $arbitre->id) }}" class="p-2 text-on-surface-muted hover:text-primary transition-colors">
                         <span class="material-symbols-outlined">edit</span>
                     </a>
-                    <form action="{{ route('admin.arbitres.destroy', $arbitre->id) }}" method="POST" onsubmit="return confirm('Supprimer cet arbitre ?')">
-                        @csrf @method('DELETE')
-                        <button class="p-2 text-on-surface-muted hover:text-primary-dark transition-colors">
-                            <span class="material-symbols-outlined">delete</span>
+                    <form action="{{ route('admin.arbitres.destroy', $arbitre->id) }}" 
+                        method="POST" 
+                        class="inline-block"
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet arbitre ?')">
+                        @csrf 
+                        @method('DELETE')
+                        <button type="submit" 
+                                class="w-9 h-9 flex items-center justify-center rounded-lg text-on-surface-muted hover:text-white hover:bg-primary-dark transition-all duration-200">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
                         </button>
                     </form>
                 </td>

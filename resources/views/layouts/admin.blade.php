@@ -8,7 +8,7 @@
             <div class="w-18 h-20 drop-shadow-xl">
                 <img src="{{ asset('images/marocLogo.webp') }}" alt="FRMF" class="w-full h-full object-contain">
             </div>
-            <h1 class="text-xl font-black text-rose-500 tracking-tighter font-headline">QUICKREF</h1>
+            <span class="text-xxl font-black text-white uppercase tracking-tighter italic">Quick<span class=" text-xxl text-primary">Ref</span></span>
         </div>
 
         {{-- Nav --}}

@@ -19,6 +19,7 @@ return new class extends Migration
         $table->string('statut')->default('en_attente');
         $table->date('date_paiement')->nullable();
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 
@@ -30,6 +31,8 @@ return new class extends Migration
         Schema::table('matchs', function (Blueprint $table) {
         // Ila bghiti t-raj3ih ENUM
         $table->enum('statut', ['en_attente', 'jouer', 'annuler'])->default('en_attente')->change();
+        $table->dropSoftDeletes();
     });
     }
+
 };

@@ -15,6 +15,7 @@ return new class extends Migration
         $table->string('nom');       
         $table->decimal('montant', 8, 2);          
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 
@@ -23,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('categories', function (Blueprint $table) {
+        $table->dropSoftDeletes();
+    });
     }
 };

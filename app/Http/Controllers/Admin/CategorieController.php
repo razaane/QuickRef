@@ -54,26 +54,19 @@ class CategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categorie $categorie)
-    {
-        return view('admin.categories.edit',compact('categorie'));
-     }
+    public function edit(Categorie $category) 
+{
+    return view('admin.categories.edit', ['categorie' => $category]);
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categorie $categorie)
-    {
-        $request->validate([
-            'nom'=>'required|string|max:100|unique:categories,nom'.$categorie->id,
-            'montant '=>'required|numeric|min:0',
-        ]);
-        $categorie->update([
-            'nom'=>$request->nom,
-            'montant'=>$request->montant,
-        ]);
-        return redirect()->route('admin.categories.index')->with('success','categorie updated with success');
-    }
+    public function update(Request $request, Categorie $category) 
+{
+    $category->update($request->all());
+    return redirect()->route('admin.categories.index');
+}
 
     /**
      * Remove the specified resource from storage.

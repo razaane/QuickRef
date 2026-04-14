@@ -38,6 +38,7 @@ return new class extends Migration
     ])->default('en_attente');
     
     $table->timestamps();
+    $table->softDeletes();
 });
 }
 
@@ -46,6 +47,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matchs');
+        Schema::table('matchs', function (Blueprint $table) {
+        $table->dropSoftDeletes();
+    });
     }
 };

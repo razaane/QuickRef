@@ -43,7 +43,6 @@ Route::middleware(['auth', 'admin'])
         Route::resource('categories', CategorieController::class);
         Route::resource('matchs', AdminMatchController::class); 
     });
-
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     // Hadu l-routes d l-paiements
     Route::get('/paiements', [PaiementController::class, 'index'])->name('paiements.index');
@@ -56,6 +55,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 });
 
 
+Route::resource('categories', CategorieController::class)->parameters([
+    'categories' => 'categorie'
+]);
 
     Route::middleware(['auth', 'arbitre'])
     ->prefix('arbitre')

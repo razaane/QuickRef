@@ -2,11 +2,12 @@
 
 namespace App\Models;
 use App\Models\Equipe;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['nom', 'montant'];
     
     public function equipes() { 

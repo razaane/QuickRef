@@ -3,53 +3,56 @@
 
 @section('admin-content')
 <div class="max-w-xl">
-    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="bg-surface rounded-[2.5rem] shadow-sm border border-outline-variant overflow-hidden">
         {{-- Header Card --}}
-        <div class="h-32 bg-[#C9A84C] flex items-center justify-center relative">
-            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl relative z-10">
-                <span class="material-symbols-outlined text-[#1B6B3A] text-4xl">payments</span>
+        <div class="h-32 bg-sidebar flex items-center justify-center relative">
+            <div class="absolute inset-0 zellige-pattern opacity-10"></div>
+            <div class="relative z-10 w-20 h-20 bg-surface rounded-[1.5rem] flex items-center justify-center shadow-2xl border-4 border-primary/20">
+                <span class="material-symbols-outlined text-primary text-4xl">payments</span>
             </div>
-            {{-- Pattern overlay --}}
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 20px 20px;"></div>
         </div>
 
-        <div class="p-8 text-center">
-            <span class="text-[10px] font-black text-[#1B6B3A] bg-[#1B6B3A]/10 px-4 py-1 rounded-full uppercase tracking-[0.2em] mb-4 inline-block">
-                Classification
+        <div class="p-10 text-center">
+            <span class="text-[10px] font-black text-primary bg-primary/10 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] mb-6 inline-block">
+                Classification Officielle
             </span>
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight mb-6">{{ $categorie->nom }}</h2>
+            <h2 class="text-4xl font-black text-on-surface tracking-tighter mb-8 uppercase">{{ $categorie->nom }}</h2>
             
             {{-- Big Amount Display --}}
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Tarif par match</p>
-                <p class="text-4xl font-black text-[#1B6B3A] tracking-tighter">
-                    {{ number_format($categorie->montant, 2) }} <span class="text-lg text-slate-400">DH</span>
-                </p>
+            <div class="bg-background/50 rounded-3xl p-8 border border-outline-variant shadow-inner">
+                <p class="text-[10px] font-black text-on-surface-muted uppercase tracking-[0.2em] mb-2">Tarif désignation par match</p>
+                <div class="flex items-center justify-center gap-2">
+                    <p class="text-5xl font-black text-on-surface tracking-tighter">
+                        {{ number_format($categorie->montant, 2) }}
+                    </p>
+                    <p class="text-xl font-black text-primary">MAD</p>
+                </div>
             </div>
 
-            <div class="mt-8 pt-6 border-t border-slate-100 flex justify-around items-center">
+            <div class="mt-10 pt-8 border-t border-outline-variant flex justify-around items-center">
                 <div class="text-center">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Créée le</p>
-                    <p class="font-bold text-slate-700 text-sm">{{ $categorie->created_at->format('d/m/Y') }}</p>
+                    <p class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest mb-1">Créée le</p>
+                    <p class="font-black text-on-surface">{{ $categorie->created_at->format('d/m/Y') }}</p>
                 </div>
-                <div class="w-px h-8 bg-slate-100"></div>
+                <div class="w-px h-10 bg-outline-variant"></div>
                 <div class="text-center">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Statut</p>
-                    <p class="font-bold text-emerald-600 text-sm">Opérationnel</p>
+                    <p class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest mb-1">Statut</p>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        <p class="font-black text-on-surface uppercase text-xs">Actif</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         {{-- Footer Actions --}}
-        <div class="bg-slate-50 p-6 flex justify-between items-center">
-            <a href="{{ route('admin.categories.index') }}" class="text-slate-500 font-bold text-sm flex items-center gap-1 hover:text-slate-900 transition-colors">
-                <span class="material-symbols-outlined text-sm">arrow_back</span> Retour
+        <div class="bg-background/50 p-6 px-10 flex justify-between items-center border-t border-outline-variant">
+            <a href="{{ route('admin.categories.index') }}" class="text-on-surface-muted font-black text-[10px] uppercase tracking-widest flex items-center gap-2 hover:text-primary transition-all">
+                <span class="material-symbols-outlined text-lg">arrow_back</span> Retour
             </a>
-            <div class="flex gap-3">
-                <a href="{{ route('admin.categories.edit', $categorie->id) }}" class="bg-[#1B6B3A] text-white px-6 py-2 rounded-xl text-sm font-bold hover:bg-[#14522c] transition-all">
-                    Modifier
-                </a>
-            </div>
+            <a href="{{ route('admin.categories.edit', $categorie->id) }}" class="bg-primary text-white px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
+                Modifier le tarif
+            </a>
         </div>
     </div>
 </div>

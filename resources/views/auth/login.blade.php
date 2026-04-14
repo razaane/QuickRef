@@ -14,8 +14,8 @@
             
             {{-- Header --}}
             <div class="text-center mb-10">
-                <div class="inline-flex items-center justify-center w-12 h-12 bg-rose-600 rounded-2xl mb-4 shadow-lg shadow-rose-600/20">
-                    <span class="material-symbols-outlined text-white">shield_person</span>
+                <div class="w-18 h-20 drop-shadow-xl mb-2">
+                    <img src="{{ asset('images/marocLogo.png') }}" alt="FRMF" class="w-full h-full object-contain">
                 </div>
                 <h1 class="text-2xl font-black text-white tracking-tight uppercase italic">
                     Quick<span class="text-rose-600">Ref</span>

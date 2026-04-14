@@ -1,122 +1,87 @@
-{{-- auth/login.blade.php --}}
 @extends('layouts.guest')
 
 @section('title', 'Connexion — QuickRef')
 
 @section('content')
-<main class="w-full max-w-md">
+<div class="min-h-screen w-full bg-[#0f172a] flex items-center justify-center p-6 font-sans">
+    
+    {{-- Subtile Radial Gradient pour la profondeur --}}
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-500/5 via-transparent to-transparent"></div>
 
-    {{-- Zellige texture background --}}
-    <div class="fixed inset-0 pointer-events-none opacity-[0.03] overflow-hidden">
-        <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <pattern height="80" id="zellige" patternUnits="userSpaceOnUse" width="80">
-                    <path d="M40 0l40 40-40 40-40-40z" fill="none" stroke="#005127" stroke-width="0.5"/>
-                    <circle cx="40" cy="40" fill="none" r="10" stroke="#755b00" stroke-width="0.5"/>
-                </pattern>
-            </defs>
-            <rect fill="url(#zellige)" height="100%" width="100%"/>
-        </svg>
-    </div>
+    <main class="w-full max-w-[400px] relative z-10">
 
-    {{-- Login Card --}}
-    <div class="relative bg-surface-container-lowest border border-tertiary/20 shadow-[0px_12px_32px_rgba(27,27,27,0.04)] rounded-xl overflow-hidden p-8 md:p-12">
-
-        {{-- Brand Identity --}}
-        <div class="flex flex-col items-center mb-10">
-            <div class="w-16 h-16 mb-4 flex items-center justify-center bg-primary/5 rounded-full">
-                <span class="material-symbols-outlined text-primary text-3xl">sports_soccer</span>
+        <div class="bg-[#1e293b]/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl shadow-2xl p-10">
+            
+            {{-- Header --}}
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-rose-600 rounded-2xl mb-4 shadow-lg shadow-rose-600/20">
+                    <span class="material-symbols-outlined text-white">shield_person</span>
+                </div>
+                <h1 class="text-2xl font-black text-white tracking-tight uppercase italic">
+                    Quick<span class="text-rose-600">Ref</span>
+                </h1>
+                <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-2">Espace Arbitrage Officiel</p>
             </div>
-            <h1 class="text-3xl font-extrabold tracking-tighter text-tertiary font-headline uppercase">QuickRef</h1>
-            <p class="text-on-surface-variant text-sm mt-2 font-medium">Direction de l'Arbitrage — FRMF</p>
-        </div>
 
-        {{-- Session errors --}}
-        @if ($errors->any())
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                @foreach ($errors->all() as $error)
-                    <p class="text-xs text-red-600 font-medium">{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
+            @if ($errors->any())
+                <div class="mb-6 p-4 bg-rose-500/10 border-l-4 border-rose-600 rounded-r-xl">
+                    <p class="text-[10px] text-rose-500 font-bold uppercase tracking-wider">Identifiants incorrects</p>
+                </div>
+            @endif
 
-        {{-- Login Form --}}
-        <form method="POST" action="{{ route('login') }}" class="space-y-6">
-            @csrf
+            <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                @csrf
 
-            {{-- Email --}}
-            <div class="space-y-2">
-                <label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant font-label" for="email">
-                    Email
-                </label>
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-0 w-1 bg-transparent group-focus-within:bg-primary transition-colors"></div>
+                {{-- Input Email --}}
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email</label>
                     <input
-                        class="w-full px-4 py-3 bg-surface-container-low border-0 text-on-surface placeholder:text-outline-variant focus:ring-0 focus:bg-surface-container-lowest transition-all @error('email') ring-1 ring-red-400 @enderror"
-                        id="email"
-                        name="email"
                         type="email"
+                        name="email"
                         value="{{ old('email') }}"
-                        placeholder="nom@exemple.ma"
+                        class="w-full bg-[#0f172a]/50 border border-slate-700 text-white rounded-xl px-5 py-3.5 text-sm focus:border-rose-600 focus:ring-0 transition-all placeholder:text-slate-600"
+                        placeholder="arbitre@frmf.ma"
                         required
-                        autocomplete="email"
                     />
                 </div>
-            </div>
 
-            {{-- Password --}}
-            <div class="space-y-2">
-                <label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant font-label" for="password">
-                    Mot de passe
-                </label>
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-0 w-1 bg-transparent group-focus-within:bg-primary transition-colors"></div>
+                {{-- Input Password --}}
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center px-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mot de passe</label>
+                        <a href="{{ route('password.request') }}" class="text-[9px] font-bold text-rose-600 hover:text-rose-400">Oublié ?</a>
+                    </div>
                     <input
-                        class="w-full px-4 py-3 bg-surface-container-low border-0 text-on-surface placeholder:text-outline-variant focus:ring-0 focus:bg-surface-container-lowest transition-all @error('password') ring-1 ring-red-400 @enderror"
-                        id="password"
-                        name="password"
                         type="password"
+                        name="password"
+                        class="w-full bg-[#0f172a]/50 border border-slate-700 text-white rounded-xl px-5 py-3.5 text-sm focus:border-rose-600 focus:ring-0 transition-all placeholder:text-slate-600"
                         placeholder="••••••••"
                         required
-                        autocomplete="current-password"
                     />
                 </div>
-            </div>
 
-            {{-- Remember me --}}
-            <div class="flex items-center gap-2">
-                <input type="checkbox" id="remember" name="remember" class="rounded border-outline-variant text-primary focus:ring-primary">
-                <label for="remember" class="text-xs text-on-surface-variant font-medium">Se souvenir de moi</label>
-            </div>
+                {{-- Remember Me --}}
+                <div class="flex items-center gap-3 px-1">
+                    <input type="checkbox" id="remember" name="remember" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-rose-600 focus:ring-rose-600 focus:ring-offset-[#0f172a]">
+                    <label for="remember" class="text-xs text-slate-400 font-medium">Rester connecté</label>
+                </div>
 
-            {{-- Submit --}}
-            <div class="pt-2">
-                <button
-                    class="w-full py-4 px-6 bg-secondary text-on-secondary font-bold text-sm tracking-wide rounded-md hover:bg-[#a00022] active:scale-[0.98] transition-all duration-200 shadow-sm"
-                    type="submit">
-                    Se connecter
+                {{-- Button --}}
+                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-black text-[11px] uppercase tracking-[0.2em] py-4 rounded-xl shadow-lg shadow-rose-600/20 transition-all active:scale-95">
+                    Se Connecter
                 </button>
-            </div>
-        </form>
+            </form>
 
-        {{-- Footer links --}}
-        <div class="mt-8 flex flex-col items-center gap-4">
-            @if (Route::has('password.request'))
-                <a class="text-primary text-sm font-semibold hover:text-primary-container transition-colors inline-flex items-center gap-1 group" href="{{ route('password.request') }}">
-                    Mot de passe oublié ?
-                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-                </a>
-            @endif
         </div>
 
-    </div>
+        {{-- Footer --}}
+        <div class="mt-10 text-center space-y-4">
+            <p class="text-[9px] text-slate-500 font-bold uppercase tracking-[0.3em]">Fédération Royale Marocaine de Football</p>
+            <div class="flex justify-center gap-6">
+                <a href="/" class="text-[10px] text-slate-400 hover:text-white transition-colors">Retour à l'accueil</a>
+            </div>
+        </div>
 
-    {{-- Institutional footer --}}
-    <footer class="mt-12 text-center">
-        <p class="text-[10px] text-on-surface-variant font-medium tracking-widest uppercase opacity-60">
-            © {{ date('Y') }} Fédération Royale Marocaine de Football — QuickRef
-        </p>
-    </footer>
-
-</main>
+    </main>
+</div>
 @endsection

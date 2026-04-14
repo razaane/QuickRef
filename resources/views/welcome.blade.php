@@ -1,28 +1,48 @@
 @extends('layouts.guest')
 
-@section('title', 'QuickRef — Plateforme Officielle d\'Arbitrage FRMF')
+@section('title', 'QuickRef — Arbitrage FRMF')
 
 @section('content')
-<div class="min-h-screen w-full">
-    {{-- TopNavBar --}}
-    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 md:px-16 h-20 bg-white/90 backdrop-blur-md border-b border-primary/5">
-        <div class="flex items-center gap-12">
-            <span class="text-2xl font-extrabold text-primary font-headline tracking-tighter">QuickRef</span>
-        </div>
-    </nav>
+<div class="min-h-screen w-full bg-sidebar relative overflow-hidden flex flex-col justify-center">
+    
+    {{-- Decorative pattern --}}
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div class="zellige-pattern h-full w-full"></div>
+    </div>
 
-    <main class="relative pt-48 pb-32 px-6 text-center max-w-5xl mx-auto">
-        <h1 class="font-headline text-6xl md:text-8xl font-extrabold text-on-surface mb-6">
-            Quick<span class="text-primary">Ref</span>
+   
+
+    <main class="relative  text-center  flex flex-col items-center px-6">
+        <div class="w-40 h-60 drop-shadow-xl ">
+                <img src="{{ asset('images/marocLogo.webp') }}" alt="FRMF" class="w-full h-full object-contain">
+        </div>
+
+        <h1 class="text-7xl md:text-9xl font-black text-white uppercase tracking-tighter leading-none mb-4">
+            QUICK<span class="text-primary italic">REF</span>
         </h1>
         
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
-            {{-- BOUTON Login --}}
-            <a href="{{ route('login') }}" 
-               class="px-12 py-5 bg-secondary text-white font-bold text-sm uppercase tracking-widest rounded-sm hover:brightness-110 transition-all shadow-xl cursor-pointer">
-                Se connecter
-            </a>
+        <p class="max-w-xl mx-auto text-white/40 text-sm font-bold uppercase tracking-widest leading-relaxed mb-12">
+            Gestion simplifiée des désignations, indemnités et performances de l'arbitrage marocain.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+            @if(auth()->check())
+                <a href="{{ route('arbitre.dashboard') }}" 
+                   class="group relative px-16 py-5 bg-primary overflow-hidden rounded-xl transition-all shadow-2xl shadow-primary/30">
+                    <span class="relative text-white font-black text-xs uppercase tracking-[0.2em]">Mon Tableau de Bord</span>
+                </a>
+            @else
+                <a href="{{ route('login') }}" 
+                   class="group relative px-16 py-5 bg-primary overflow-hidden rounded-xl transition-all shadow-2xl shadow-primary/30">
+                    <span class="relative text-white font-black text-xs uppercase tracking-[0.2em]">Se connecter</span>
+                </a>
+            @endif
         </div>
     </main>
+
+    {{-- Bottom bar --}}
+    <div class="absolute bottom-10 w-full text-center">
+        <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.5em]">Fédération Royale Marocaine de Football</p>
+    </div>
 </div>
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\MatchController as AdminMatchController;
 use App\Http\Controllers\Arbitre\ArbitreMatchController;
 use App\Http\Controllers\Admin\PaiementController;
+use App\Http\Controllers\Admin\DashboardController;
 
 
 Route::get('/', function () {
@@ -36,7 +37,7 @@ Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function() {
-        Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('equipes', EquipeController::class);
         Route::resource('arbitres', ArbitreController::class);
         Route::resource('categories', CategorieController::class);

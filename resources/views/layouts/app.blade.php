@@ -35,14 +35,14 @@
                 },
             },
         }
-    </script>
+        </script>
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
             vertical-align: middle;
         }
-
+        
         .zellige-pattern {
             background-color: #f8fafc;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 15-15 15-15-15zM0 30l15 15-15 15-15-15zM60 30l15 15-15 15-15-15zM30 60l15-15-15-15-15 15z' fill='%23e11d48' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
@@ -53,8 +53,11 @@
             background-size: 20px 20px;
         }
 
+        #logoBg{
+            /* filter:blur(60px); */
+        }
         @yield('extra-styles')
-    </style>
+        </style>
     @yield('head')
 </head>
 <body class="@yield('body-class', 'bg-background font-body text-on-surface min-h-screen')">

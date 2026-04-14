@@ -13,8 +13,9 @@
    
 
     <main class="relative  text-center  flex flex-col items-center px-6">
-        <div class="w-40 h-60 drop-shadow-xl ">
-                <img src="{{ asset('images/marocLogo.webp') }}" alt="FRMF" class="w-full h-full object-contain">
+        <div class="relative drop-shadow-xl z-0 mb-20">
+            <div class="w-40 h-40 rounded-full shadow-[0_10px_30px] shadow-primary rounded-full" id="logoBg"></div>
+            <img src="{{ asset('images/marocLogo.png') }}" alt="FRMF" class="w-40 object-contain absolute top-0">
         </div>
 
         <h1 class="text-7xl md:text-9xl font-black text-white uppercase tracking-tighter leading-none mb-4">

@@ -53,9 +53,7 @@
             background-size: 20px 20px;
         }
 
-        #logoBg{
-            /* filter:blur(60px); */
-        }
+        
         @yield('extra-styles')
         </style>
     @yield('head')

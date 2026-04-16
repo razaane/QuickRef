@@ -6,7 +6,7 @@
         {{-- Brand --}}
         <div class="flex flex-col items-center gap-3 px-2 mb-16">
             <div class="w-18 h-20 drop-shadow-xl">
-                <img src="{{ asset('images/marocLogo.pngp') }}" alt="FRMF" class="w-full h-full object-contain">
+                <img src="{{ asset('images/marocLogo.png') }}" alt="FRMF" class="w-full h-full object-contain">
             </div>
             <span class="text-xxl font-black text-white uppercase tracking-tighter italic">Quick<span class=" text-xxl text-primary">Ref</span></span>
         </div>

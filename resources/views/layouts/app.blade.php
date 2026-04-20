@@ -53,6 +53,13 @@
             background-size: 20px 20px;
         }
 
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
         
         @yield('extra-styles')
         </style>

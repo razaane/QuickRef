@@ -5,7 +5,7 @@
     <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-10 h-20 bg-sidebar border-b border-white/5 backdrop-blur-md shadow-2xl">
         <div class="flex items-center gap-3">
             <div class="w-14 h-14 drop-shadow-xl">
-                <img src="{{ asset('images/marocLogo.pngp') }}" alt="FRMF" class="w-full h-full object-contain">
+                <img src="{{ asset('images/marocLogo.png') }}" alt="FRMF" class="w-full h-full object-contain">
             </div>
             <span class="text-xl font-black text-white uppercase tracking-tighter italic">Quick<span class="text-primary">Ref</span></span>
         </div>

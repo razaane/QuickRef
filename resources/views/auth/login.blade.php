@@ -60,11 +60,6 @@
                     />
                 </div>
 
-                {{-- Remember Me --}}
-                <div class="flex items-center gap-3 px-1">
-                    <input type="checkbox" id="remember" name="remember" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-rose-600 focus:ring-rose-600 focus:ring-offset-[#0f172a]">
-                    <label for="remember" class="text-xs text-slate-400 font-medium">Rester connecté</label>
-                </div>
 
                 {{-- Button --}}
                 <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-black text-[11px] uppercase tracking-[0.2em] py-4 rounded-xl shadow-lg shadow-rose-600/20 transition-all active:scale-95">

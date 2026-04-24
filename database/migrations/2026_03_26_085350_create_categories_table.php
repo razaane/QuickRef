@@ -15,8 +15,7 @@ return new class extends Migration
         $table->string('nom');       
         $table->decimal('montant', 8, 2);          
         $table->timestamps();
-        $table->softDeletes();
-    });
+   });
 }
 
     /**

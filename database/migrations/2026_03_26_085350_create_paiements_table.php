@@ -19,7 +19,6 @@ return new class extends Migration
         $table->string('statut')->default('en_attente');
         $table->date('date_paiement')->nullable();
         $table->timestamps();
-        $table->softDeletes();
     });
 }
 

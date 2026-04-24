@@ -122,9 +122,12 @@ class ArbitreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Arbitre $arbitre)
-    {
-        $arbitre->delete();
-        return redirect()->route('admin.arbitres.index')->with('success','supprimé avec success');
-    }
+   public function destroy(Arbitre $arbitre)
+{
+    $arbitre->delete();
+    $arbitre->user->delete();
+
+    return redirect()->route('admin.arbitres.index')
+        ->with('success','supprimé avec success');
+}
 }

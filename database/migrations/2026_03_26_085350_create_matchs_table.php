@@ -18,10 +18,10 @@ return new class extends Migration
     $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
 
     //Arbitres
-    $table->foreignId('arbitre_central_id')->constrained('arbitres');
-    $table->foreignId('arbitre_assistant1_id')->constrained('arbitres');
-    $table->foreignId('arbitre_assistant2_id')->constrained('arbitres');
-    $table->foreignId('quatrieme_arbitre_id')->nullable()->constrained('arbitres');
+    $table->foreignId('arbitre_central_id')->nullable()->constrained('arbitres')->nullOnDelete();
+    $table->foreignId('arbitre_assistant1_id')->nullable()->constrained('arbitres')->nullOnDelete();
+    $table->foreignId('arbitre_assistant2_id')->nullable()->constrained('arbitres')->nullOnDelete();
+    $table->foreignId('quatrieme_arbitre_id')->nullable()->constrained('arbitres')->nullOnDelete();
 
     //date et day
     $table->dateTime('date_heure'); 
@@ -38,7 +38,6 @@ return new class extends Migration
     ])->default('en_attente');
     
     $table->timestamps();
-    $table->softDeletes();
 });
 }
 

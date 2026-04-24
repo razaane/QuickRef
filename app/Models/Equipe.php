@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipe extends Model
 {
-    use SoftDeletes;
     protected $fillable = ['nom', 'ville'];
 
     public function categorie(){

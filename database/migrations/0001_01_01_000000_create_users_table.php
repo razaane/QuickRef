@@ -18,7 +18,6 @@ return new class extends Migration
         $table->enum('role', ['admin', 'arbitre'])->default('arbitre');
         $table->rememberToken();
         $table->timestamps();
-        $table->softDeletes();
     });
     }
 

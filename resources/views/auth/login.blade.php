@@ -1,12 +1,8 @@
-@extends('layouts.guest')
-
-@section('title', 'Connexion — QuickRef')
-
-@section('content')
+<x-guest-layout>
 <div class="min-h-screen w-full bg-[#0f172a] flex items-center justify-center p-6 font-sans">
     
-    {{-- Subtile Radial Gradient pour la profondeur --}}
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-500/5 via-transparent to-transparent"></div>
+    {{-- Subtile Radial Gradient --}}
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-500/5 via-transparent to-transparent pointer-events-none"></div>
 
     <main class="w-full max-w-[400px] relative z-10">
 
@@ -14,7 +10,7 @@
             
             {{-- Header --}}
             <div class="text-center mb-10">
-                <div class="w-18 h-20 drop-shadow-xl mb-2">
+                <div class="w-18 h-20 drop-shadow-xl mb-2 mx-auto">
                     <img src="{{ asset('images/marocLogo.png') }}" alt="FRMF" class="w-full h-full object-contain">
                 </div>
                 <h1 class="text-2xl font-black text-white tracking-tight uppercase italic">
@@ -24,7 +20,7 @@
             </div>
 
             @if ($errors->any())
-                <div class="mb-6 p-4 bg-rose-500/10 border-l-4 border-rose-600 rounded-r-xl">
+                <div class="mb-6 p-4 bg-rose-500/10 border-l-4 border-rose-600 rounded-r-xl text-left">
                     <p class="text-[10px] text-rose-500 font-bold uppercase tracking-wider">Identifiants incorrects</p>
                 </div>
             @endif
@@ -34,7 +30,7 @@
 
                 {{-- Input Email --}}
                 <div class="space-y-2">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email</label>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 text-left block">Email</label>
                     <input
                         type="email"
                         name="email"
@@ -48,7 +44,7 @@
                 {{-- Input Password --}}
                 <div class="space-y-2">
                     <div class="flex justify-between items-center px-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mot de passe</label>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">Mot de passe</label>
                         <a href="{{ route('password.request') }}" class="text-[9px] font-bold text-rose-600 hover:text-rose-400">Oublié ?</a>
                     </div>
                     <input
@@ -59,7 +55,6 @@
                         required
                     />
                 </div>
-
 
                 {{-- Button --}}
                 <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-black text-[11px] uppercase tracking-[0.2em] py-4 rounded-xl shadow-lg shadow-rose-600/20 transition-all active:scale-95">
@@ -79,4 +74,4 @@
 
     </main>
 </div>
-@endsection
+</x-guest-layout>

@@ -10,7 +10,6 @@ use App\Models\User;
 
 class Arbitre extends Model {
     
-    use SoftDeletes;
     protected $fillable = [
         'user_id', 'telephone', 'grade', 'adresse',
     ];

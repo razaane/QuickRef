@@ -46,7 +46,7 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categorie $categorie)
+    public function show(Categorie $category)
     {
         return redirect()->route('admin.categories.index',compact('categorie'));
     }
@@ -71,9 +71,9 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorie $categorie)
+    public function destroy(Categorie $category)
     {
-        $categorie->delete();
+        $category->delete();
         return redirect()->route('admin.categories.index')->with('success','deleted with success');
     }
 }

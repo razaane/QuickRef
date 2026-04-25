@@ -2,7 +2,6 @@
 
 namespace App\Models;
 use App\Models\categorie;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Equipe extends Model

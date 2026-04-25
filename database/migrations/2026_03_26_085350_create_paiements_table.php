@@ -27,11 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('matchs', function (Blueprint $table) {
-        // Ila bghiti t-raj3ih ENUM
-        $table->enum('statut', ['en_attente', 'jouer', 'annuler'])->default('en_attente')->change();
-        $table->dropSoftDeletes();
-    });
+        Schema::dropIfExists('paiements');
     }
 
 };

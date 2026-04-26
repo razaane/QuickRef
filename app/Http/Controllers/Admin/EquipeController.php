@@ -32,7 +32,7 @@ class EquipeController extends Controller
     {
         $request->validate([
             'nom'   => 'required|string|max:100|unique:equipes,nom',
-            'ville' => 'required|string|max:100', // tashi7 l-validation hna
+            'ville' => 'required|string|max:100|min:4', 
         ]);
 
         Equipe::create($request->only('nom', 'ville'));
@@ -54,7 +54,6 @@ class EquipeController extends Controller
      */
     public function edit(Equipe $equipe)
     {
-        // tashi7: khass t-koun .edit f l-akhir
         return view('admin.equipes.edit', compact('equipe'));
     }
 
@@ -64,8 +63,8 @@ class EquipeController extends Controller
     public function update(Request $request, Equipe $equipe)
     {
         $request->validate([
-            'nom'   => 'required|string|max:100|unique:equipes,nom,' . $equipe->id,
-            'ville' => 'required|string|max:100',
+            'nom'   => 'required|string|max:100|unique:equipes,nom,' . $equipe->id ,
+            'ville' => 'required|string|max:100|min:4',
         ]);
 
         $equipe->update($request->only('nom', 'ville'));
@@ -76,7 +75,7 @@ class EquipeController extends Controller
     /**
      * Supprimer l'équipe
      */
-    public function destroy(Equipe $equipe) // tashi7: $equipe (mofrad)
+    public function destroy(Equipe $equipe) 
     {
         $equipe->delete();
         return redirect()->route('admin.equipes.index')->with('success', 'Équipe supprimée avec succès');

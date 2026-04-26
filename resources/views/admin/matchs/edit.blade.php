@@ -61,6 +61,18 @@
                     </select>
                 </div>
 
+                {{-- CATEGORIE - AJOUTÉ ICI --}}
+                <div>
+                    <label class="text-xs font-bold text-on-surface-muted">Catégorie</label>
+                    <select name="categorie_id" class="w-full border rounded-xl p-3">
+                        @foreach($categories as $categorie)
+                            <option value="{{ $categorie->id }}" {{ $match->categorie_id == $categorie->id ? 'selected' : '' }}>
+                                {{ $categorie->nom }} ({{ number_format($categorie->montant, 2) }} MAD)
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 {{-- Date --}}
                 <div>
                     <label class="text-xs font-bold text-on-surface-muted">Date & Heure</label>

@@ -8,6 +8,7 @@ use App\Models\Equipe;
 use App\Models\Arbitre;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;  
 
 class MatchController extends Controller
 {
@@ -35,16 +36,24 @@ class MatchController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateMatch($request);
-
+        
         if ($this->isArbitreBusy($request)) {
             return back()->withInput()
                 ->withErrors(['error' => 'Un arbitre est déjà assigné à ce créneau.']);
         }
-
-        Game::create($data);
-
-        return redirect()->route('admin.matchs.index')
-            ->with('success', 'Match créé avec succès.');
+        
+        DB::beginTransaction();
+        try {
+            Game::create($data);
+            DB::commit();
+            
+            return redirect()->route('admin.matchs.index')
+                ->with('success', 'Match créé avec succès.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()
+                ->withErrors(['error' => 'Erreur lors de la création : ' . $e->getMessage()]);
+        }
     }
 
     public function show(Game $match)
@@ -75,24 +84,32 @@ class MatchController extends Controller
     public function update(Request $request, $id)
     {
         $match = Game::findOrFail($id);
-
-        $data = $this->validateUpdate($request);
-
+        
+        $data = $this->validateMatch($request);
+        
         if ($this->isArbitreBusy($request, $id)) {
             return back()->withInput()
                 ->withErrors(['error' => 'Conflit: arbitre déjà occupé.']);
         }
-
-        $match->update($data);
-
-        return redirect()->route('admin.matchs.index')
-            ->with('success', 'Match mis à jour avec succès.');
+        
+        DB::beginTransaction();
+        try {
+            $match->update($data);
+            DB::commit();
+            
+            return redirect()->route('admin.matchs.index')
+                ->with('success', 'Match mis à jour avec succès.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withInput()
+                ->withErrors(['error' => 'Erreur lors de la mise à jour : ' . $e->getMessage()]);
+        }
     }
 
     public function destroy(Game $match)
     {
         $match->delete();
-
+        
         return redirect()->route('admin.matchs.index')
             ->with('success', 'Match supprimé.');
     }
@@ -102,30 +119,13 @@ class MatchController extends Controller
         return $request->validate([
             'equipe_domicile_id' => 'required|exists:equipes,id',
             'equipe_visiteur_id' => 'required|exists:equipes,id|different:equipe_domicile_id',
-            'categorie_id' => 'required|exists:categories,id',
-
+            'categorie_id' => 'required|exists:categories,id',  
+            
             'arbitre_central_id' => 'required|exists:arbitres,id',
-            'arbitre_assistant1_id' => 'required|exists:arbitres,id|different:arbitre_central_id',
-            'arbitre_assistant2_id' => 'required|exists:arbitres,id|different:arbitre_central_id|different:arbitre_assistant1_id',
+            'arbitre_assistant1_id' => 'nullable|exists:arbitres,id|different:arbitre_central_id',
+            'arbitre_assistant2_id' => 'nullable|exists:arbitres,id|different:arbitre_central_id|different:arbitre_assistant1_id',
             'quatrieme_arbitre_id' => 'nullable|exists:arbitres,id',
-
-            'date_heure' => 'required|date|after_or_equal:now',
-            'terrain' => 'required|string|max:255',
-            'ville' => 'required|string|max:255',
-            'statut' => 'required|in:en_attente,confirmer,jouer,annuler,reporter',
-        ]);
-    }
-    private function validateUpdate(Request $request)
-    {
-        return $request->validate([
-            'equipe_domicile_id' => 'required|exists:equipes,id',
-            'equipe_visiteur_id' => 'required|exists:equipes,id|different:equipe_domicile_id',
-
-            'arbitre_central_id' => 'required|exists:arbitres,id',
-            'arbitre_assistant1_id' => 'required|exists:arbitres,id|different:arbitre_central_id',
-            'arbitre_assistant2_id' => 'required|exists:arbitres,id|different:arbitre_central_id|different:arbitre_assistant1_id',
-            'quatrieme_arbitre_id' => 'nullable|exists:arbitres,id',
-
+            
             'date_heure' => 'required|date|after_or_equal:now',
             'terrain' => 'required|string|max:255',
             'ville' => 'required|string|max:255',
@@ -141,10 +141,14 @@ class MatchController extends Controller
             $request->arbitre_assistant2_id,
             $request->quatrieme_arbitre_id,
         ]));
-
+        
+        if (empty($arbitres)) {
+            return false;
+        }
+        
         return Game::when($excludeMatchId, function ($q) use ($excludeMatchId) {
-            $q->where('id', '!=', $excludeMatchId);
-        })
+                $q->where('id', '!=', $excludeMatchId);
+            })
             ->where('date_heure', $request->date_heure)
             ->where(function ($q) use ($arbitres) {
                 $q->whereIn('arbitre_central_id', $arbitres)

@@ -39,7 +39,7 @@ class ArbitreMatchController extends Controller
             ->orderBy('date_heure', 'desc')
             ->get();
 
-        // Total indemnités (tous les paiements de cet arbitre)
+        // Total indemnites (
         $totalIndemnites = DB::table('paiements')
             ->where('arbitre_id', $arbitreId)
             ->sum('montant');

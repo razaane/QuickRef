@@ -55,9 +55,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 });
 
 
-Route::resource('categories', CategorieController::class)->parameters([
-    'categories' => 'categorie'
-]);
 
     Route::middleware(['auth', 'arbitre'])
     ->prefix('arbitre')

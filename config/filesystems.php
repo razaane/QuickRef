@@ -59,6 +59,10 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'snapshots' => [
+        'driver' => 'local',
+        'root' => storage_path('app/snapshots'),
+    ],
 
     ],
 

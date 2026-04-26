@@ -1,125 +1,104 @@
 @extends('layouts.admin')
-@section('page-title', 'Vue d\'ensemble')
 
 @section('admin-content')
-<div class="space-y-6 lg:space-y-8">
+<div class="p-4 lg:p-6">
 
-    {{-- Stats Cards : 1 col sur mobile, 2 sur tablette, 4 sur desktop --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-
-        {{-- Matchs joués --}}
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-transform hover:scale-[1.02]">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-                    <span class="material-symbols-outlined">sports_soccer</span>
-                </div>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Total</span>
-            </div>
-            <p class="text-2xl lg:text-3xl font-black text-slate-800 tracking-tighter">{{ $totalMatchsJoues }}</p>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Matchs Joués</p>
-        </div>
-
-        {{-- Matchs en attente --}}
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-transform hover:scale-[1.02]">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center">
-                    <span class="material-symbols-outlined">hourglass_empty</span>
-                </div>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Action</span>
-            </div>
-            <p class="text-2xl lg:text-3xl font-black text-slate-800 tracking-tighter">{{ $totalMatchsAttente }}</p>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">En Attente</p>
-        </div>
-
-        {{-- Total Arbitres --}}
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-transform hover:scale-[1.02]">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-                    <span class="material-symbols-outlined">person_search</span>
-                </div>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Effectif</span>
-            </div>
-            <p class="text-2xl lg:text-3xl font-black text-slate-800 tracking-tighter">{{ $totalArbitres }}</p>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Arbitres</p>
-        </div>
-
-        {{-- Paiements en attente --}}
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-transform hover:scale-[1.02]">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center">
-                    <span class="material-symbols-outlined">payments</span>
-                </div>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">MAD</span>
-            </div>
-            <p class="text-2xl lg:text-3xl font-black text-slate-800 tracking-tighter">{{ number_format($totalPaiementsAttente, 0, ',', ' ') }}</p>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">À Régler</p>
-        </div>
-
+    {{-- En-tête --}}
+    <div class="mb-8">
+        <h2 class="text-2xl font-black text-on-surface uppercase tracking-tighter">Vue d'ensemble</h2>
+        <p class="text-on-surface-muted text-sm font-medium">Statistiques et activités récentes</p>
     </div>
 
-    {{-- Section Tableaux --}}
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="px-5 lg:px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-            <h2 class="text-[10px] lg:text-xs font-black text-slate-500 uppercase tracking-[0.2em]">Derniers Matchs</h2>
-            <a href="{{ route('admin.matchs.index') }}"
-               class="text-[9px] lg:text-[10px] font-black text-rose-600 uppercase tracking-widest hover:underline">
-                Tout voir →
-            </a>
+    {{-- Stats Cards (Style Index Matchs) --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        
+        {{-- Card 1 --}}
+        <div class="bg-surface p-5 rounded-2xl border border-outline-variant shadow-sm">
+            <div class="flex justify-between items-start mb-3">
+                <span class="material-symbols-outlined text-emerald-500 bg-emerald-50 p-2 rounded-lg">sports_soccer</span>
+                <span class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest">Total</span>
+            </div>
+            <p class="text-3xl font-black text-on-surface tracking-tighter">{{ $totalMatchsJoues }}</p>
+            <p class="text-xs font-bold text-on-surface-muted uppercase mt-1 italic">Matchs Joués</p>
         </div>
 
-        {{-- Le scroll horizontal est crucial ici --}}
-        <div class="overflow-x-auto w-full">
-            <table class="w-full min-w-[700px]"> {{-- min-w garantit que le tableau ne s'écrase pas --}}
-                <thead class="bg-slate-50/80">
+        {{-- Card 2 --}}
+        <div class="bg-surface p-5 rounded-2xl border border-outline-variant shadow-sm">
+            <div class="flex justify-between items-start mb-3">
+                <span class="material-symbols-outlined text-amber-500 bg-amber-50 p-2 rounded-lg">hourglass_empty</span>
+                <span class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest">Action</span>
+            </div>
+            <p class="text-3xl font-black text-on-surface tracking-tighter">{{ $totalMatchsAttente }}</p>
+            <p class="text-xs font-bold text-on-surface-muted uppercase mt-1 italic">En Attente</p>
+        </div>
+
+        {{-- Card 3 --}}
+        <div class="bg-surface p-5 rounded-2xl border border-outline-variant shadow-sm">
+            <div class="flex justify-between items-start mb-3">
+                <span class="material-symbols-outlined text-blue-500 bg-blue-50 p-2 rounded-lg">groups</span>
+                <span class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest">Effectif</span>
+            </div>
+            <p class="text-3xl font-black text-on-surface tracking-tighter">{{ $totalArbitres }}</p>
+            <p class="text-xs font-bold text-on-surface-muted uppercase mt-1 italic">Arbitres</p>
+        </div>
+
+        {{-- Card 4 --}}
+        <div class="bg-surface p-5 rounded-2xl border border-outline-variant shadow-sm">
+            <div class="flex justify-between items-start mb-3">
+                <span class="material-symbols-outlined text-primary bg-primary/5 p-2 rounded-lg">payments</span>
+                <span class="text-[10px] font-black text-on-surface-muted uppercase tracking-widest">MAD</span>
+            </div>
+            <p class="text-3xl font-black text-on-surface tracking-tighter">{{ number_format($totalPaiementsAttente, 0, ',', ' ') }}</p>
+            <p class="text-xs font-bold text-primary uppercase mt-1 italic tracking-tight">À Régler</p>
+        </div>
+    </div>
+
+    {{-- Section Derniers Matchs (Exactement comme ton tableau) --}}
+    <div class="bg-surface rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
+        <div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-background">
+            <h3 class="text-sm font-black text-on-surface uppercase tracking-widest">Dernières Activités</h3>
+            <a href="{{ route('admin.matchs.index') }}" class="text-xs font-black text-primary uppercase hover:underline">Voir tout</a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-left min-w-[800px] border-collapse">
+                <thead class="bg-background border-b border-outline-variant">
                     <tr>
-                        <th class="px-6 lg:px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-left">Date</th>
-                        <th class="px-6 lg:px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-left">Affiche du Match</th>
-                        <th class="hidden sm:table-cell px-6 lg:px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-left">Catégorie</th>
-                        <th class="px-6 lg:px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-left">Arbitre Central</th>
-                        <th class="px-6 lg:px-8 py-4 text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Statut</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase text-on-surface-muted tracking-widest">Date / Heure</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase text-on-surface-muted tracking-widest">Affiche</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase text-on-surface-muted tracking-widest text-center">Statut</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-outline-variant">
                     @forelse($derniersMatchs as $match)
-                    <tr class="hover:bg-slate-50/50 transition-colors">
-                        <td class="px-6 lg:px-8 py-5 text-xs font-bold text-slate-500 italic">
-                            {{ \Carbon\Carbon::parse($match->date_heure)->format('d/m/y') }}
-                        </td>
-                        <td class="px-6 lg:px-8 py-5">
-                            <div class="flex flex-col">
-                                <span class="text-xs font-black text-slate-800 uppercase tracking-tight">
-                                    {{ $match->equipeDomicile->nom ?? '?' }} 
-                                    <span class="text-rose-600 font-light mx-0.5">vs</span> 
-                                    {{ $match->equipeVisiteur->nom ?? '?' }}
-                                </span>
-                                <span class="text-[9px] text-slate-400 font-bold mt-1 uppercase italic opacity-70">{{ $match->terrain }}</span>
-                            </div>
-                        </td>
-                        <td class="hidden sm:table-cell px-6 lg:px-8 py-5">
-                            <span class="text-[9px] font-black text-slate-400 bg-slate-100 px-2 py-1 rounded-md uppercase">
-                                {{ $match->categorie->nom ?? '—' }}
+                    <tr class="hover:bg-slate-50 transition-colors group">
+                        <td class="px-6 py-4">
+                            <span class="block text-sm font-black text-on-surface uppercase tracking-tighter">
+                                {{ \Carbon\Carbon::parse($match->date_heure)->format('d M Y') }}
+                            </span>
+                            <span class="text-xs font-bold text-primary">
+                                {{ \Carbon\Carbon::parse($match->date_heure)->format('H:i') }}
                             </span>
                         </td>
-                        <td class="px-6 lg:px-8 py-5 text-xs font-bold text-slate-700">
-                            {{ $match->arbitreCentral->user->name ?? '—' }}
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm font-black text-on-surface uppercase tracking-tight">{{ $match->equipeDomicile->nom }}</span>
+                                <span class="text-primary font-black text-xs px-2 py-0.5 bg-primary/5 rounded">VS</span>
+                                <span class="text-sm font-black text-on-surface uppercase tracking-tight">{{ $match->equipeVisiteur->nom }}</span>
+                            </div>
                         </td>
-                        <td class="px-6 lg:px-8 py-5 text-center">
+                        <td class="px-6 py-4 text-center">
                             @php
-                                $statusClass = match($match->statut) {
-                                    'jouer'     => 'bg-emerald-50 text-emerald-600 border-emerald-100',
-                                    'confirmer' => 'bg-blue-50 text-blue-600 border-blue-100',
-                                    'annuler'   => 'bg-rose-50 text-rose-600 border-rose-100',
-                                    default     => 'bg-orange-50 text-orange-600 border-orange-100',
-                                };
+                                $isJouer = $match->statut == 'jouer';
                             @endphp
-                            <span class="text-[8px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg border {{ $statusClass }}">
-                                {{ $match->statut ?? 'Attente' }}
+                            <span class="px-4 py-1.5 text-[10px] rounded-lg font-black uppercase tracking-widest border shadow-sm {{ $isJouer ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200' }}">
+                                {{ str_replace('_', ' ', $match->statut) }}
                             </span>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="px-8 py-16 text-center text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">
+                        <td colspan="3" class="px-6 py-10 text-center text-on-surface-muted font-black uppercase text-xs tracking-widest">
                             Aucune activité récente
                         </td>
                     </tr>

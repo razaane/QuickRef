@@ -73,7 +73,7 @@ class ArbitreController extends Controller
      */
     public function show(Arbitre $arbitre)
     {
-        return redirect()->route('admin.arbitres.show')->compact('arbitre');
+        return view('admin.arbitres.show', compact('arbitre'));
     }
 
     /**

@@ -13,7 +13,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories= Categorie::orderBy('montant')->paginate(10);
+        $categories = Categorie::orderBy('montant')->paginate(10);
         return view('admin.categories.index',compact('categories'));
     }
 
@@ -47,9 +47,9 @@ class CategorieController extends Controller
      * Display the specified resource.
      */
     public function show(Categorie $category)
-    {
-        return redirect()->route('admin.categories.index',compact('categorie'));
-    }
+{
+    return view('admin.categories.show', compact('categorie'));
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -64,8 +64,12 @@ class CategorieController extends Controller
      */
     public function update(Request $request, Categorie $category) 
 {
+    $request->validate([
+            'nom'=>'required|string|max:100',
+            'montant'=>'required|numeric|min:0 ',
+    ]);
     $category->update($request->all());
-    return redirect()->route('admin.categories.index');
+    return redirect()->route('admin.categories.index')->with('success', 'Catégorie mise à jour');
 }
 
     /**
